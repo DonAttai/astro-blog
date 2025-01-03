@@ -1,0 +1,31 @@
+---
+import NavBar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import {SITE_NAME, SITE_DESCRIPTION} from "../constants"
+const {title = "Home Page"} = Astro.props 
+
+interface Props {
+	title?: string
+}
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={SITE_DESCRIPTION} >
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{SITE_NAME} - {title}</title>
+	</head>
+	<body>
+		<NavBar/>
+			<main class="container mx-auto max-w-screen-xl mt-10 px-8">
+				<slot />
+			</main>
+		<Footer/>
+	</body>
+</html>
+

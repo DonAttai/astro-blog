@@ -1,0 +1,18 @@
+---
+import { Image } from "astro:assets";
+import MainLayout from "../layouts/MainLayout.astro";
+import {Icon} from "astro-icon/components"
+import errorImage from "../images/404_error.png"
+---
+
+<MainLayout title="Not found page">
+    <div class="h-[calc(100vh-13.5rem)] space-y-4 text-center">
+
+            <Image class="inline-block" src={errorImage} alt="" width={300} height={300}/>
+            <p>The page you requested seems not to be available!</p>
+            <a href="/" class="bg-gray-400 inline-block my-4 p-2 text-lg w-fit text-white rounded-md ml-8 hover:bg-blue-400" >
+                <Icon name="back-arrow" class="inline-block" />
+                Back To Home
+            </a>
+    </div>
+</MainLayout>

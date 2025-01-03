@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "../../layouts/MainLayout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import SearchForm from "../../components/SearchForm.astro";
+import PaginationComponent from "../../components/Pagination.astro";
+import { ARTICLES_PER_PAGE } from "../../constants";
+
+const articles = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const currentPage: number = +Astro.url.searchParams.get("page")! || 1;
+const totalPages = Math.ceil(articles.length / ARTICLES_PER_PAGE);
+
+const articlesPerPage = articles.slice(
+  (currentPage - 1) * ARTICLES_PER_PAGE,
+  currentPage * ARTICLES_PER_PAGE
+);
+---
+
+<MainLayout title="Articles">
+  <section>
+    <SearchForm />
+    <h1 class="text-2xl font-bold mb-4">All Articles</h1>
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {articlesPerPage.map((article) => <ArticleCard article={article} />)}
+    </div>
+  </section>
+  <PaginationComponent currentPage={currentPage} totalPages={totalPages} />
+</MainLayout>

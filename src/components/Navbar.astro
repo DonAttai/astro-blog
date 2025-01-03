@@ -1,0 +1,35 @@
+---
+const pathname = Astro.url.pathname;
+const currentPath = pathname.slice(1);
+---
+
+<nav
+  class="bg-slate-800 h-16 flex justify-between items-center text-white sticky top-0 px-8 z-10 md:px-16"
+>
+  <div class="text-xl font-bold">
+    Tech<span class="text-3xl italic">X</span>
+  </div>
+  <!-- visible only on medium and large screen -->
+  <ul class="text-lg font-bold hidden md:inline-flex gap-4">
+    <li class={currentPath === "" ? "active-link" : ""}>
+      <a href="/">Home</a>
+    </li>
+    <li class={currentPath === "articles" ? "active-link" : ""}>
+      <a href="/articles">Articles</a>
+    </li>
+    <li class={currentPath === "about" ? "active-link" : ""}>
+      <a href="/about">About</a>
+    </li>
+  </ul>
+  <!-- visible only on small screen -->
+  <ul class="md:hidden">
+    <li>Hamburger</li>
+  </ul>
+</nav>
+
+<style>
+  .active-link {
+    color: lightblue;
+    font-weight: bold;
+  }
+</style>
