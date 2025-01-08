@@ -64,7 +64,7 @@ const { Content } = await render(article as CollectionEntry<"blog">);
 <!-- script -->
 <script>
   import { actions } from "astro:actions";
-  const article_id = document.querySelector<HTMLElement>("#article")?.dataset
+  const articleId = document.querySelector<HTMLElement>("#article")?.dataset
     .id as string;
   const form = document.querySelector<HTMLFormElement>("#comment-form");
   form?.addEventListener("submit", async (e) => {
@@ -73,7 +73,7 @@ const { Content } = await render(article as CollectionEntry<"blog">);
     const comment = formData.get("comment") as string;
     const { error, data } = await actions.commentAction({
       content: comment.trim(),
-      article_id,
+      articleId,
       author: "Attai",
     });
     if (error) {
