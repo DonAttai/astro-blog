@@ -3,6 +3,70 @@ import AuthLayout from "../layouts/AuthLayout.astro";
 ---
 
 <AuthLayout title="Register">
-  <h1>Create Account</h1>
-  <form action=""></form>
+  <h1 class="text-2xl font-semibold mb-6">Create account</h1>
+  <form>
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium text-gray-700"
+        >Email</label
+      >
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        class="mt-1 p-2 w-full border rounded-md outline-none"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700"
+        >Password</label
+      >
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+        class="mt-1 p-2 w-full border rounded-md outline-none"
+      />
+    </div>
+    <button
+      type="submit"
+      class="bg-blue-500 w-28 text-white font-bold py-2 px-4 rounded disabled:opacity-50 hover:bg-blue-700"
+      >Register</button
+    >
+  </form>
+  <div class="mt-4 text-center">
+    <p class="mt-2">
+      Already have an account? <a
+        href="/login"
+        class="text-blue-500 hover:underline">Login</a
+      >
+    </p>
+  </div>
 </AuthLayout>
+
+<script>
+  import { actions } from "astro:actions";
+  import { navigate } from "astro:transitions/client";
+  const form = document.querySelector("form");
+  const button = document.querySelector<HTMLButtonElement>("button")!;
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    button.disabled = true;
+    button.textContent = "Wait...";
+    const formData = new FormData(form);
+    const { error, data } = await actions.auth.register(formData);
+    if (error?.code === "INTERNAL_SERVER_ERROR") {
+      alert("Something went wrong. Please try again later.");
+      return;
+    } else if (error) {
+      alert(error.message);
+      return;
+    }
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log("data", data);
+    button.disabled = false;
+    button.textContent = "Register";
+    // if (!error) navigate("/login");
+  });
+</script>

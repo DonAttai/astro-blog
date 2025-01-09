@@ -12,9 +12,11 @@ interface Props {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TechX | {title}</title>
   </head>
-  <body>
-    <main class="container mx-auto">
-      <slot />
+  <body class="bg-gray-100">
+    <main class="flex items-center justify-center min-h-screen">
+      <div class="w-96 p-6 bg-white rounded-lg shadow-md">
+        <slot />
+      </div>
     </main>
   </body>
 </html>
